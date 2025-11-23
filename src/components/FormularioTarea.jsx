@@ -18,7 +18,7 @@ export function FormularioTarea({ alAgregar }) {
         setTexto('');
     };
 
-    
+    // en este hay un error 
 
     return (
         <form onSubmit={manejarEnvio}>

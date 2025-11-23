@@ -1,8 +1,8 @@
 import React from 'react';
-import './TargetaTarea.css';
+import { useState } from 'react';
 
-export function TarjetaTarea({ tarea, alCompletar, alEliminar }) {
-   const fechaFormateada = (fecha) => {
+export function TarjetaTarea({ tarea, alEliminar }) {
+    const fechaFormateada = (fecha) => {
         const fechaFormateada = new Date(fecha);
         const dia = fechaFormateada.getDate();
         const mes = fechaFormateada.getMonth() + 1;
@@ -10,23 +10,29 @@ export function TarjetaTarea({ tarea, alCompletar, alEliminar }) {
         return `${dia}/${mes}/${anio}`;
     };
 
+    const [Complet, setComplet] = useState(false); // pasa a true
+
+    const completed = Complet ? 'Desmarcar' : 'Marcar'; // si pasa a true el contenido del btn => Desmarcar sino Marcar
+
+
     const id = tarea.id;
     const texto = tarea.texto;
-    const completada = tarea.completada;
+    // const completada = tarea.completada;
     const fecha = tarea.fecha;
 
     const fechaFormateadaTarea = fechaFormateada(fecha);
+    console.log(`${tarea}/ fecha: n${fecha}/n${id}`)// pasar todo a la consola junto al id
 
-    const manejarCompletar = (evento) => {
-        evento.preventDefault();
-        alCompletar(id);
-    };
+    const manejarCompletar = () => {
+        setComplet(!Complet)
+    }
+
 
     const manejarEliminar = (evento) => {
         evento.preventDefault();
         alEliminar(id);
-    };  
-    
+    };
+
     return (
         <div style={{
             border: '2px solid #ccc',
@@ -37,13 +43,14 @@ export function TarjetaTarea({ tarea, alCompletar, alEliminar }) {
             justifyContent: 'space-between',
             alignItems: 'center'
         }}>
-            <div>
-                <span style={{ textDecoration: tarea.completada == true ? 'line-through' : 'none' }}>
+            <div className='ContentTareasPendientes'>
+                <span style={{ textDecoration: Complet ? 'line-through' : 'none', color : Complet ? 'red': 'blue'}}>  {/* lo mimso  si es true el estilo cambia y se subraya si el false se queda normal */}
+                    {/* falta Eliminar el otro input  */}
                     {tarea.texto}
                 </span>
 
-                <div style={{ fontSize: '0.8em', color: '#666' }}>
-                    Creado: {fechaFormateadaTarea}
+                <div style={{ fontSize: '1em', color: '#666' }}>
+                    Creado: {fecha}
                 </div>
             </div>
 
@@ -51,7 +58,7 @@ export function TarjetaTarea({ tarea, alCompletar, alEliminar }) {
 
             <div>
                 <button onClick={manejarCompletar}>
-                    {tarea.completada ? 'Desmarcar' : 'Completar'}
+                    {completed}
                 </button>
                 <button onClick={manejarEliminar}>
                     Eliminar

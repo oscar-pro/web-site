@@ -2,9 +2,6 @@ import './index.css'
 import { TableroTareas } from './components/TableroTareas'
 import { FormularioTarea } from './components/FormularioTarea'
 import { useState } from 'react'
-// ¡Bienvenido a tu primer día!
-// Esta es la aplicación principal. Ahora mismo renderiza el Tablero de Tareas.
-// No necesitas tocar mucho aquí, el problema está dentro de los componentes.
 
 export default function App() {
     const [tareas, setTareas] = useState([]);
@@ -17,7 +14,7 @@ export default function App() {
         };
         setTareas([...tareas, nuevaTarea]);
     };
-
+    let id;
     const FechaActual = new Date();
     const DiaActual = FechaActual.getDate();
     const MesActual = FechaActual.getMonth() + 1;
@@ -27,11 +24,13 @@ export default function App() {
     const toggleCompletada = (id) => {
         const tarea = tareas.find(t => t.id === id);
         tarea.completada = !tarea.completada;
-        setTareas([...tareas]); 
+        setTareas([...tareas]);
     };
+
     const eliminarTarea = (id) => {
         setTareas(tareas.filter(t => t.id !== id));
     };
+    console.log(id)
     return (
         <>
             <div className="App-Tareas">
@@ -40,9 +39,6 @@ export default function App() {
                     agregarTarea={agregarTarea}
                     toggleCompletada={toggleCompletada}
                     eliminarTarea={eliminarTarea}
-                />
-                <FormularioTarea
-                    agregarTarea={agregarTarea}
                 />
             </div>
         </>
