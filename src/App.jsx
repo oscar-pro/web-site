@@ -1,15 +1,14 @@
 import './index.css'
-import { useState } from 'react'
-export function Btn() {
+import { TableroTareas } from './components/TableroTareas.jsx'
 
-    const [click, setclick] = useState(false);
-    const TextBtn = click ? 'Dejar de seguir' : 'Seguir';
-    const c = click ? 'BtnClick' : 'Btn';
-    const handleclick = () => {
-        setclick(!click)
-    }
+// ¡Bienvenido a tu primer día!
+// Esta es la aplicación principal. Ahora mismo renderiza el Tablero de Tareas.
+// No necesitas tocar mucho aquí, el problema está dentro de los componentes.
 
+export default function App() {
     return (
-        <button onClick={handleclick} className={c}>{TextBtn}</button>
+        <div className="app-container">
+            <TableroTareas />
+        </div>
     )
 }
